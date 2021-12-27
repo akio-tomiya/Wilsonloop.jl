@@ -52,6 +52,7 @@ module Wilsonloop
 
     mutable struct Wilsonline{Dim}
         glinks::Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}
+
         Wilsonline(;Dim=4) = new{Dim}([])
         Wilsonline(glinks;Dim=4) = new{Dim}(glinks)
         function Wilsonline(segments_in::Array{Tuple{T,T},1};Dim=4) where T<: Integer
@@ -410,6 +411,96 @@ module Wilsonloop
             end
         end
         return loops
+    end
+
+
+    function make_polyakov(μ,Lμ;Dim=4)
+        loops = Wilsonline{Dim}[]
+        loop1 = Wilsonline([(μ,Lμ)],Dim = Dim)
+        push!(loops,loop1)
+        return loops
+    end
+
+    function make_polyakov_xyz(Lμ;Dim=4)
+        loops = Wilsonline{Dim}[]
+        for μ=1:3
+            loop1 = Wilsonline([(μ,Lμ)],Dim = Dim)
+            push!(loops,loop1)
+        end
+        return loops
+    end
+
+    function make_loopforactions(couplinglist,L)
+        Dim = length(L)
+        loops = Array{Wilson_loop_set,1}(undef,length(couplinglist))
+        for (i,name) in enumerate(couplinglist)
+            if  name == "plaq"
+                loops[i] = make_plaq(Dim = Dim)
+            elseif name == "rect"
+                loops[i] = make_rect(Dim = Dim)
+            elseif name == "polyt"
+                μ= Dim
+                loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
+            elseif name == "polyz"
+                @assert Dim > 3 "Dimension should be Dim > 3 but now Dim = $Dim"
+                μ= 3
+                loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
+            elseif name == "polyy"
+                @assert Dim > 2 "Dimension should be Dim > 2 but now Dim = $Dim"
+                μ= 2
+                loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
+            elseif name == "polyx"
+                μ= 1
+                loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
+            else
+                error("$name is not supported!")
+            end
+        end
+        return loops
+    end
+
+    function make_chair()
+        #loopset = []
+        loops = Wilsonline{Dim}[]
+        set1 = (1,2,3)
+        set2 = (1,2,4)
+        set3 = (2,3,4)
+        set4 = (1,3,4)
+    
+        for set in (set1,set2,set3,set4)
+            mu,nu,rho = set
+            origin = zeros(Int8,4)
+            loop = [(mu,1),(nu,1),(rho,1),(mu,-1),(rho,-1),(nu,-1)]
+            loop1 =  Wilsonline(loop,Dim = Dim)
+            push!(loopset,loop1)
+    
+            mu,rho,nu = set
+            loop = [(mu,1),(nu,1),(rho,1),(mu,-1),(rho,-1),(nu,-1)]
+            loop1 =  Wilsonline(loop,Dim = Dim)
+            push!(loopset,loop1)
+    
+            nu,rho,mu = set
+            loop = [(mu,1),(nu,1),(rho,1),(mu,-1),(rho,-1),(nu,-1)]
+            loop1 =  Wilsonline(loop,Dim = Dim)
+            push!(loopset,loop1)
+    
+            nu,mu,rho = set
+            loop = [(mu,1),(nu,1),(rho,1),(mu,-1),(rho,-1),(nu,-1)]
+            loop1 =  Wilsonline(loop,Dim = Dim)
+            push!(loopset,loop1)
+    
+            rho,mu,nu = set
+            loop = [(mu,1),(nu,1),(rho,1),(mu,-1),(rho,-1),(nu,-1)]
+            loop1 =  Wilsonline(loop,Dim = Dim)
+            push!(loopset,loop1)
+    
+            rho,nu,mu = set
+            loop = [(mu,1),(nu,1),(rho,1),(mu,-1),(rho,-1),(nu,-1)]
+            loop1 =  Wilsonline(loop,Dim = Dim)
+            push!(loopset,loop1)
+    
+        end
+        return loopset
     end
 
 
