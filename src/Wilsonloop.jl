@@ -202,7 +202,8 @@ module Wilsonloop
 
     function Base.show(io::IO,glink::Gaugelink{Dim}) where Dim
         outputstring =get_printstring(glink)
-        println(io,outputstring)
+
+        println(io,latexstring(outputstring))
     end
 
     function Base.display(w::Wilsonline{Dim}) where Dim
