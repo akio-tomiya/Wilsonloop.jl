@@ -1,5 +1,5 @@
 module Wilsonloop
-    export make_staple,Gaugeline, make_staple_and_loop,derive_U,make_Cμ,
+    export make_staple,Wilsonline, make_staple_and_loop,derive_U,make_Cμ,
             make_plaq_staple,make_plaq, loops_staple_prime,get_position
     using LaTeXStrings
     using LinearAlgebra
@@ -50,11 +50,11 @@ module Wilsonloop
 
 
 
-    mutable struct Gaugeline{Dim}
+    mutable struct Wilsonline{Dim}
         glinks::Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}
-        Gaugeline(;Dim=4) = new{Dim}([])
-        Gaugeline(glinks;Dim=4) = new{Dim}(glinks)
-        function Gaugeline(segments_in::Array{Tuple{T,T},1};Dim=4) where T<: Integer
+        Wilsonline(;Dim=4) = new{Dim}([])
+        Wilsonline(glinks;Dim=4) = new{Dim}(glinks)
+        function Wilsonline(segments_in::Array{Tuple{T,T},1};Dim=4) where T<: Integer
             segments = make_links(segments_in)
             numline = length(segments)
             glinks = Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}(undef,numline)
@@ -78,11 +78,11 @@ module Wilsonloop
     end
 
     struct DwDU{Dim,μ}
-        parent::Gaugeline{Dim}
+        parent::Wilsonline{Dim}
         insertindex::Int64
         position::NTuple{Dim,Int64}
-        leftlinks::Gaugeline{Dim}
-        rightlinks::Gaugeline{Dim}
+        leftlinks::Wilsonline{Dim}
+        rightlinks::Wilsonline{Dim}
     end
 
     function get_leftlinks(dw::DwDU)
@@ -95,28 +95,28 @@ module Wilsonloop
 
 
 
-    function Base.push!(w::Gaugeline,link)
+    function Base.push!(w::Wilsonline,link)
         push!(w.glinks,link)
     end
 
-    function Base.append!(w::Gaugeline,a::Gaugeline)
+    function Base.append!(w::Wilsonline,a::Wilsonline)
         append!(w.glinks,a.glinks)
     end
 
-    function Base.length(w::Gaugeline)
+    function Base.length(w::Wilsonline)
         return length(w.glinks)
     end
 
-    function Base.getindex(w::Gaugeline,i)
+    function Base.getindex(w::Wilsonline,i)
         return w.glinks[i]
     end
 
-    function Base.lastindex(w::Gaugeline)
+    function Base.lastindex(w::Wilsonline)
         return length(w)
     end
 
-    function LinearAlgebra.adjoint(w::Gaugeline{Dim}) where Dim
-        wa = Gaugeline(;Dim=Dim)
+    function LinearAlgebra.adjoint(w::Wilsonline{Dim}) where Dim
+        wa = Wilsonline(;Dim=Dim)
         numlinks = length(w)
         for i=numlinks:-1:1
             push!(wa,w[i]')
@@ -124,7 +124,7 @@ module Wilsonloop
         return wa
     end
 
-    function LinearAlgebra.adjoint(ws::Array{<: Gaugeline{Dim},1}) where Dim
+    function LinearAlgebra.adjoint(ws::Array{<: Wilsonline{Dim},1}) where Dim
         num = length(ws)
         wad = Array{eltype(ws),1}(undef,num)
         for i=1:num
@@ -134,7 +134,7 @@ module Wilsonloop
     end
 
 
-    function Base.show(io::IO,ws::Array{<: Gaugeline{Dim},1}) where Dim
+    function Base.show(io::IO,ws::Array{<: Wilsonline{Dim},1}) where Dim
         for i=1:length(ws)
             if i==1
                 st ="st"
@@ -151,7 +151,7 @@ module Wilsonloop
         end
     end
 
-    function Base.display(ws::Array{<: Gaugeline{Dim},1}) where Dim
+    function Base.display(ws::Array{<: Wilsonline{Dim},1}) where Dim
         for i=1:length(ws)
             if i==1
                 st ="st"
@@ -205,7 +205,7 @@ module Wilsonloop
         println(io,outputstring)
     end
 
-    function Base.display(w::Gaugeline{Dim}) where Dim
+    function Base.display(w::Wilsonline{Dim}) where Dim
         outputstring = ""
         for (i,glink) in enumerate(w.glinks)
             outputstring = outputstring*get_printstring(glink)
@@ -214,7 +214,7 @@ module Wilsonloop
         return outputstring
     end
 
-    function Base.show(io::IO,w::Gaugeline{Dim}) where Dim
+    function Base.show(io::IO,w::Wilsonline{Dim}) where Dim
         outputstring = ""
         for (i,glink) in enumerate(w.glinks)
             outputstring = outputstring*get_printstring(glink)
@@ -223,12 +223,12 @@ module Wilsonloop
         return outputstring
     end
 
-    function make_staple(w::Gaugeline{Dim},μ) where Dim
+    function make_staple(w::Wilsonline{Dim},μ) where Dim
         dwdUs = derive_U(w,μ)
         numstaples = length(dwdUs)
         staple = Array{typeof(w),1}(undef,numstaples)
         for i=1:numstaples
-            wi =Gaugeline(Dim=Dim)
+            wi =Wilsonline(Dim=Dim)
             append!(wi,get_rightlinks(dwdUs[i]))
             append!(wi,get_leftlinks(dwdUs[i]))
             staple[i] = wi
@@ -236,7 +236,7 @@ module Wilsonloop
         return staple
     end
 
-    function make_Cμ(w::Gaugeline{Dim},μ) where Dim
+    function make_Cμ(w::Wilsonline{Dim},μ) where Dim
         V1 = make_staple(w,μ)
         V2 = make_staple(w',μ)
         C = eltype(V1)[]
@@ -249,7 +249,7 @@ module Wilsonloop
         return C
     end
 
-    function make_staple_and_loop(w::Gaugeline{Dim},μ) where Dim
+    function make_staple_and_loop(w::Wilsonline{Dim},μ) where Dim
         C = make_staple(w,μ)
         append!(C,make_staple(w',μ))
         numstaple = length(C)
@@ -280,16 +280,16 @@ module Wilsonloop
     """
         like U U U U -> U U otimes U 
     """
-    function derive_U(w::Gaugeline{Dim},μ) where Dim
+    function derive_U(w::Wilsonline{Dim},μ) where Dim
         numlinks = length(w)
         linkindices = check_link(w,μ)
         numstaples = length(linkindices)
         dwdU = Array{DwDU{Dim,μ},1}(undef,numstaples)
 
         for (i,ith) in enumerate(linkindices)
-            #wi =Gaugeline(Dim=Dim)
-            rightlinks = Gaugeline(Dim=Dim)
-            leftlinks = Gaugeline(Dim=Dim)
+            #wi =Wilsonline(Dim=Dim)
+            rightlinks = Wilsonline(Dim=Dim)
+            leftlinks = Wilsonline(Dim=Dim)
             origin = w[ith].position
             position = zero(collect(origin))
             position[w[ith].direction] += 1
@@ -364,11 +364,11 @@ module Wilsonloop
     end
 
     function make_plaq(μ,ν;Dim=4)
-        return Gaugeline([(μ,1),(ν,1),(μ,-1),(ν,-1)],Dim = Dim)
+        return Wilsonline([(μ,1),(ν,1),(μ,-1),(ν,-1)],Dim = Dim)
     end
 
     function make_plaq(;Dim=4)
-        loops = Gaugeline{Dim}[]
+        loops = Wilsonline{Dim}[]
         for μ=1:Dim
             #for ν=1:4
             for ν=μ:Dim
@@ -384,7 +384,7 @@ module Wilsonloop
     end
 
     function make_rect(;Dim=4)
-        loops = Gaugeline{Dim}[]
+        loops = Wilsonline{Dim}[]
         for μ=1:4
             for ν=μ:4
                 if ν == μ
@@ -392,11 +392,11 @@ module Wilsonloop
                 end
                 #loop = make_links([(μ,1),(ν,2),(μ,-1),(ν,-2)])
 
-                loop1 = Gaugeline([(μ,1),(ν,2),(μ,-1),(ν,-2)],Dim = Dim)
+                loop1 = Wilsonline([(μ,1),(ν,2),(μ,-1),(ν,-2)],Dim = Dim)
                 #loop1 = Wilson_loop([(μ,1),(ν,2),(μ,-1),(ν,-2)])
                 #loop1 = Wilson_loop(loop,Tuple(origin))
                 push!(loops,loop1)
-                loop1 = Gaugeline([(μ,2),(ν,1),(μ,-2),(ν,-1)],Dim = Dim)
+                loop1 = Wilsonline([(μ,2),(ν,1),(μ,-2),(ν,-1)],Dim = Dim)
                 #loop1 = Wilson_loop([(μ,2),(ν,1),(μ,-2),(ν,-1)])
                 push!(loops,loop1)
             end
@@ -406,7 +406,7 @@ module Wilsonloop
 
 
     function make_plaq_staple(μ;Dim=4)
-        loops = Gaugeline{Dim}[]
+        loops = Wilsonline{Dim}[]
         plaqs = make_plaq(Dim = Dim)
         numplaq = length(plaqs)
         for i=1:numplaq
