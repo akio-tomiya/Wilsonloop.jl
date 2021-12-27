@@ -77,12 +77,13 @@ module Wilsonloop
         end
     end
 
-    struct DwDU{Dim,μ}
+    struct DwDU{Dim}
         parent::Wilsonline{Dim}
         insertindex::Int64
         position::NTuple{Dim,Int64}
         leftlinks::Wilsonline{Dim}
         rightlinks::Wilsonline{Dim}
+        μ::Int8
     end
 
     function get_leftlinks(dw::DwDU)
@@ -291,7 +292,7 @@ module Wilsonloop
         numlinks = length(w)
         linkindices = check_link(w,μ)
         numstaples = length(linkindices)
-        dwdU = Array{DwDU{Dim,μ},1}(undef,numstaples)
+        dwdU = Array{DwDU{Dim},1}(undef,numstaples)
 
         for (i,ith) in enumerate(linkindices)
             #wi =Wilsonline(Dim=Dim)
@@ -319,14 +320,14 @@ module Wilsonloop
                 link_rev =  set_position(link,Tuple(position))
                 push!(leftlinks,link_rev)
             end
-            dwdU[i] = DwDU{Dim,μ}(w,ith,origin,leftlinks,rightlinks)
+            dwdU[i] = DwDU{Dim}(w,ith,origin,leftlinks,rightlinks,μ)
             #println("μ = ",μ)
             #display(wi)
         end
         return dwdU
     end
 
-    function Base.display(dwdU::DwDU{Dim,μ}) where {Dim,μ}
+    function Base.display(dwdU::DwDU{Dim}) where {Dim}
         outputstring = ""
         if length(dwdU.leftlinks.glinks) == 0
             outputstring =outputstring*"I "
