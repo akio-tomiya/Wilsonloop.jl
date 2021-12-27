@@ -206,6 +206,8 @@ module Wilsonloop
         return latexstring(outputstring)
     end
 
+    #=
+
     function Base.display(w::Wilsonline{Dim}) where Dim
         outputstring = ""
         for (i,glink) in enumerate(w.glinks)
@@ -216,6 +218,8 @@ module Wilsonloop
         #return outputstring
     end
 
+    =#
+    
     function Base.show(io::IO,w::Wilsonline{Dim}) where Dim
         outputstring = ""
         for (i,glink) in enumerate(w.glinks)
