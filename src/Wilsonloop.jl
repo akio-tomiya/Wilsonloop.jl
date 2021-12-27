@@ -196,8 +196,8 @@ module Wilsonloop
     function get_printstring(glink::Gaugelink{Dim}) where Dim
         direction  = get_direction(glink)
         dagornot = ifelse(typeof(glink) <: GLink,"","^{\\dagger}")
-        nstring = "$(direction),"*get_printstring_direction(glink)
-        return "U_{$(nstring)}$(dagornot) "
+        nstring = get_printstring_direction(glink)
+        return "U$(dagornot)_{$(direction)}($(nstring))"
     end
 
     function Base.show(io::IO,glink::Gaugelink{Dim}) where Dim
