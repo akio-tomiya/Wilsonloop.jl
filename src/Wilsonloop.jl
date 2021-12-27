@@ -211,9 +211,9 @@ module Wilsonloop
         for (i,glink) in enumerate(w.glinks)
             outputstring = outputstring*get_printstring(glink)
         end
-        println(outputstring)
+        #println(outputstring)
         show(io,latexstring(outputstring))
-        return outputstring
+        #return outputstring
     end
 
     function Base.show(io::IO,w::Wilsonline{Dim}) where Dim
@@ -221,8 +221,8 @@ module Wilsonloop
         for (i,glink) in enumerate(w.glinks)
             outputstring = outputstring*get_printstring(glink)
         end
-        show(io,outputstring)
-        println(io,outputstring)
+        show(io,latexstring(outputstring))
+        #println(io,outputstring)
         return outputstring
     end
 
