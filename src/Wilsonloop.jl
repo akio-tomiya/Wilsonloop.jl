@@ -432,7 +432,7 @@ module Wilsonloop
 
     function make_loopforactions(couplinglist,L)
         Dim = length(L)
-        loops = Array{Wilson_loop_set,1}(undef,length(couplinglist))
+        loops = Array{Array{Wilsonline{Dim},1},1}(undef,length(couplinglist))
         for (i,name) in enumerate(couplinglist)
             if  name == "plaq"
                 loops[i] = make_plaq(Dim = Dim)
