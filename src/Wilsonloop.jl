@@ -430,26 +430,29 @@ module Wilsonloop
         return loops
     end
 
+
     function make_loopforactions(couplinglist,L)
         Dim = length(L)
         loops = Array{Array{Wilsonline{Dim},1},1}(undef,length(couplinglist))
         for (i,name) in enumerate(couplinglist)
-            if  name == "plaq"
+            if  name == "plaquette"
                 loops[i] = make_plaq(Dim = Dim)
-            elseif name == "rect"
+            elseif name == "rectangular"
                 loops[i] = make_rect(Dim = Dim)
-            elseif name == "polyt"
+            elseif name =="chair"
+                loops[i] = make_chair(Dim = Dim)
+            elseif name == "polyakov_t"
                 μ= Dim
                 loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
-            elseif name == "polyz"
+            elseif name == "polyakov_z"
                 @assert Dim > 3 "Dimension should be Dim > 3 but now Dim = $Dim"
                 μ= 3
                 loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
-            elseif name == "polyy"
+            elseif name == "polyakov_y"
                 @assert Dim > 2 "Dimension should be Dim > 2 but now Dim = $Dim"
                 μ= 2
                 loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
-            elseif name == "polyx"
+            elseif name == "polyakov_x"
                 μ= 1
                 loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
             else
