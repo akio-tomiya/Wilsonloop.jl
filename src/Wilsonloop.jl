@@ -219,7 +219,7 @@ module Wilsonloop
     end
 
     =#
-    
+
     function Base.show(io::IO,w::Wilsonline{Dim}) where Dim
         outputstring = ""
         for (i,glink) in enumerate(w.glinks)
@@ -227,7 +227,7 @@ module Wilsonloop
         end
         show(io,latexstring(outputstring))
         #println(io,outputstring)
-        return outputstring
+        return latexstring(outputstring)
     end
 
     function make_staple(w::Wilsonline{Dim},μ) where Dim
