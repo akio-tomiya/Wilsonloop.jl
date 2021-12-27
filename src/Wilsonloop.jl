@@ -227,7 +227,7 @@ module Wilsonloop
         end
         show(io,latexstring(outputstring))
         #println(io,outputstring)
-        return latexstring(outputstring)
+        #return latexstring(outputstring)
     end
 
     function make_staple(w::Wilsonline{Dim},μ) where Dim
