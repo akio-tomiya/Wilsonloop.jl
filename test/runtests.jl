@@ -11,25 +11,25 @@ function test()
         display(staples)
     end
 
-    display(loops_staple_prime[(4,4)])
+    show(loops_staple_prime[(4,4)])
 
-    return
+    #return
 
 
     loop = [(1,+1),(2,+1),(1,-1),(2,-1)]
     println(loop)
-    w = Gaugeline(loop)
+    w = Wilsonline(loop)
     println("P: ")
-    display(w)
+    show(w)
     println("P^+: ")
-    display(w')
+    show(w')
     println("staple")
     for μ=1:4
         println("μ = $μ")
         V1 = make_staple(w,μ)
         V2 = make_staple(w',μ)
-        display(V1)
-        display(V2)
+        show(V1)
+        show(V2)
     end
 
 
@@ -37,7 +37,7 @@ function test()
     for μ=1:4
         dU = derive_U(w,μ)
         for i=1:length(dU)
-            display(dU[i])
+            show(dU[i])
         end
     end
 
@@ -61,14 +61,14 @@ function test()
         for i=1:length(C)
             println("---------------------------------------")
             println("C[$i]: ")
-            display(C[i])
+            show(C[i])
             for ν=1:4
                 println("-----------------------------")
                 println("ν = $ν")
                 dCdU = derive_U(C[i],ν)
                 println("dC_{$μ}/dU_{$ν}: ")
                 for j=1:length(dCdU)
-                    display(dCdU[j])
+                    show(dCdU[j])
                 end
             end
         end

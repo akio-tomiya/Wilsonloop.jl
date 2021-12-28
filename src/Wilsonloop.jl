@@ -228,6 +228,7 @@ module Wilsonloop
             outputstring = outputstring*get_printstring(glink)
         end
         show(io,latexstring(outputstring))
+        println("\t")
         #println(io,outputstring)
         #return latexstring(outputstring)
     end
@@ -353,6 +354,53 @@ module Wilsonloop
         outputstring = outputstring*"\\delta_{n,$(nstring)}"
 
         println(outputstring)
+        return outputstring
+    end
+
+    function Base.show(io::IO,dwdU::Array{DwDU{Dim},1}) where {Dim}
+        for i=1:length(dwdU)
+            if i==1
+                st ="st"
+            elseif i==2
+                st ="nd"
+            elseif i==3
+                st ="rd"
+            else
+                st ="th"
+            end
+            println("$i-$st loop")
+            show(dwdUs[i])
+            
+        end
+    end
+
+    function Base.show(io::IO,dwdU::DwDU{Dim}) where {Dim}
+        outputstring = ""
+        if length(dwdU.leftlinks.glinks) == 0
+            outputstring =outputstring*"I "
+        else
+            for glink in dwdU.leftlinks.glinks
+                outputstring =outputstring*get_printstring(glink)
+            end
+        end
+
+        outputstring = outputstring*" \\otimes "
+
+        if length(dwdU.rightlinks.glinks) == 0
+            outputstring =outputstring*"I "
+        else
+            for glink in dwdU.rightlinks.glinks
+                outputstring =outputstring*get_printstring(glink)
+            end
+        end
+
+        nstring = get_printstring_direction(dwdU.parent.glinks[dwdU.insertindex])
+
+        outputstring = outputstring*"\\delta_{n,$(nstring)}"
+
+        show(io,latexstring(outputstring))
+        println("\t")
+        #println(outputstring)
         return outputstring
     end
 
