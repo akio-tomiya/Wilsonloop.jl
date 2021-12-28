@@ -369,7 +369,7 @@ module Wilsonloop
                 st ="th"
             end
             println("$i-$st loop")
-            show(dwdUs[i])
+            show(dwdU[i])
             
         end
     end
