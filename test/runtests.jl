@@ -74,6 +74,39 @@ function test()
         end
     end
 
+    println("-------------------------------------------------------")
+    println("C and dC/dUdag")
+    for μ=1:4
+        C = make_Cμ(w,μ)
+        #=
+        V1 = make_staple(w,μ)
+        V2 = make_staple(w',μ)
+        C = eltype(V1)[]
+        for i=1:length(V1)
+            push!(C,V1[i]')
+        end
+        for i=1:length(V2)
+            push!(C,V2[i]')
+        end
+        =#
+        println("-------------------------------------------")
+        println("μ = $μ")
+        for i=1:length(C)
+            println("---------------------------------------")
+            println("C[$i]: ")
+            show(C[i])
+            for ν=1:4
+                println("-----------------------------")
+                println("ν = $ν")
+                dCdU = derive_Udag(C[i],ν)
+                println("dC_{$μ}/dUdag_{$ν}: ")
+                for j=1:length(dCdU)
+                    show(dCdU[j])
+                end
+            end
+        end
+    end
+
     #=
     w = Wilsonline(loop)
     println("P: ")

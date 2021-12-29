@@ -1,6 +1,6 @@
 module Wilsonloop
     export make_staple,Wilsonline, make_staple_and_loop,derive_U,make_Cμ,
-            make_plaq_staple,make_plaq, loops_staple_prime,get_position
+            make_plaq_staple,make_plaq, loops_staple_prime,get_position,derive_Udag
     using LaTeXStrings
     using LinearAlgebra
     import Base
@@ -287,6 +287,20 @@ module Wilsonloop
         return linkindices
     end
 
+    function check_link_dag(w,μ)
+        numlinks = length(w)
+        linkindices=Int64[]
+        for i=1:numlinks
+            link = w[i]
+            if typeof(link) <: Adjoint_GLink
+                if get_direction(link) == μ
+                    append!(linkindices,i)
+                end
+            end
+        end
+        return linkindices
+    end
+
     """
         like U U U U -> U U otimes U 
     """
@@ -327,6 +341,49 @@ module Wilsonloop
             #display(wi)
         end
         return dwdU
+    end
+
+    """
+    like U U U U -> U U otimes U 
+"""
+    function derive_Udag(w::Wilsonline{Dim},μ) where Dim
+        #error("not yet")
+        numlinks = length(w)
+        linkindices = check_link_dag(w,μ)
+        numstaples = length(linkindices)
+        dwdUdag = Array{DwDU{Dim},1}(undef,numstaples)
+
+        for (i,ith) in enumerate(linkindices)
+            #wi =Wilsonline(Dim=Dim)
+            rightlinks = Wilsonline(Dim=Dim)
+            leftlinks = Wilsonline(Dim=Dim)
+            origin = get_position(w[ith]) #.position
+            position = zero(collect(origin))
+            #position[w[ith].direction] += 1
+
+            for j=ith+1:numlinks
+                link = w[j]
+                if typeof(link) <: GLink 
+                    link_rev = set_position(link,Tuple(position))
+                    position[get_direction(link)] += 1
+                else
+                    position[get_direction(link)] += -1
+                    link_rev = set_position(link,Tuple(position))
+                end
+                push!(rightlinks,link_rev)
+            end
+
+            for j=1:ith-1
+                link = w[j]
+                position = collect(get_position(link)) .- origin
+                link_rev =  set_position(link,Tuple(position))
+                push!(leftlinks,link_rev)
+            end
+            dwdUdag[i] = DwDU{Dim}(w,ith,origin,leftlinks,rightlinks,μ)
+            #println("μ = ",μ)
+            #display(wi)
+        end
+        return dwdUdag
     end
 
     function Base.display(dwdU::DwDU{Dim}) where {Dim}
