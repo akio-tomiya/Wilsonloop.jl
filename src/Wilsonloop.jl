@@ -584,7 +584,7 @@ module Wilsonloop
 
     function make_chair(;Dim=4)
         #loopset = []
-        loops = Wilsonline{Dim}[]
+        loopset = Wilsonline{Dim}[]
         set1 = (1,2,3)
         set2 = (1,2,4)
         set3 = (2,3,4)
