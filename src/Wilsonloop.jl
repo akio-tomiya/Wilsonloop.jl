@@ -582,7 +582,7 @@ module Wilsonloop
         return loops
     end
 
-    function make_chair()
+    function make_chair(;Dim=4)
         #loopset = []
         loops = Wilsonline{Dim}[]
         set1 = (1,2,3)
