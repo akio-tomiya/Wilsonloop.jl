@@ -324,7 +324,7 @@ module Wilsonloop
 
             for j=ith+1:numlinks
                 link = w[j]
-                #=
+                
                 if typeof(link) <: GLink 
                     link_rev = set_position(link,Tuple(position))
                     position[get_direction(link)] += 1
@@ -333,18 +333,18 @@ module Wilsonloop
                     link_rev = set_position(link,Tuple(position))
                 end
                 push!(rightlinks,link_rev)
-                =#
-                push!(rightlinks,link) 
+                
+                #push!(rightlinks,link) 
             end
 
             for j=1:ith-1
                 link = w[j]
-                #=
+                
                 position = collect(get_position(link)) .- origin
                 link_rev =  set_position(link,Tuple(position))
                 push!(leftlinks,link_rev)
-                =#
-                push!(leftlinks,link)
+                
+                #push!(leftlinks,link)
             end
             dwdU[i] = DwDU{Dim}(w,ith,origin,leftlinks,rightlinks,μ)
             #println("μ = ",μ)
