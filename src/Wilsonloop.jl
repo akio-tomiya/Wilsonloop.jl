@@ -95,6 +95,10 @@ module Wilsonloop
         return dw.rightlinks
     end
 
+    function get_position(dw::DwDU)
+        return dw.position1 
+    end
+
 
 
     function Base.push!(w::Wilsonline,link)
@@ -320,6 +324,7 @@ module Wilsonloop
 
             for j=ith+1:numlinks
                 link = w[j]
+                #=
                 if typeof(link) <: GLink 
                     link_rev = set_position(link,Tuple(position))
                     position[get_direction(link)] += 1
@@ -328,13 +333,18 @@ module Wilsonloop
                     link_rev = set_position(link,Tuple(position))
                 end
                 push!(rightlinks,link_rev)
+                =#
+                push!(rightlinks,link) 
             end
 
             for j=1:ith-1
                 link = w[j]
+                #=
                 position = collect(get_position(link)) .- origin
                 link_rev =  set_position(link,Tuple(position))
                 push!(leftlinks,link_rev)
+                =#
+                push!(leftlinks,link)
             end
             dwdU[i] = DwDU{Dim}(w,ith,origin,leftlinks,rightlinks,μ)
             #println("μ = ",μ)
@@ -363,6 +373,7 @@ module Wilsonloop
 
             for j=ith+1:numlinks
                 link = w[j]
+                #=
                 if typeof(link) <: GLink 
                     link_rev = set_position(link,Tuple(position))
                     position[get_direction(link)] += 1
@@ -371,13 +382,17 @@ module Wilsonloop
                     link_rev = set_position(link,Tuple(position))
                 end
                 push!(rightlinks,link_rev)
+                =#
+                push!(rightlinks,link)
             end
 
             for j=1:ith-1
                 link = w[j]
+                #=
                 position = collect(get_position(link)) .- origin
                 link_rev =  set_position(link,Tuple(position))
-                push!(leftlinks,link_rev)
+                push!(leftlinks,link_rev)=#
+                push!(leftlinks,link)
             end
             dwdUdag[i] = DwDU{Dim}(w,ith,origin,leftlinks,rightlinks,μ)
             #println("μ = ",μ)
@@ -408,7 +423,7 @@ module Wilsonloop
 
         nstring = get_printstring_direction(dwdU.parent.glinks[dwdU.insertindex])
 
-        outputstring = outputstring*"\\delta_{n,$(nstring)}"
+        outputstring = outputstring*"\\delta_{m,$(nstring)}"
 
         println(outputstring)
         return outputstring
@@ -453,7 +468,7 @@ module Wilsonloop
 
         nstring = get_printstring_direction(dwdU.parent.glinks[dwdU.insertindex])
 
-        outputstring = outputstring*"\\delta_{n,$(nstring)}"
+        outputstring = outputstring*"\\delta_{m,$(nstring)}"
 
         show(io,latexstring(outputstring))
         println("\t")
