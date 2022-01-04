@@ -1,6 +1,6 @@
 module Wilsonloop
     export make_staple,Wilsonline, make_staple_and_loop,derive_U,make_Cμ,
-            make_plaq_staple,make_plaq, loops_staple_prime,get_position,derive_Udag
+            make_plaq_staple,make_plaq, loops_staple_prime,get_position,derive_Udag,make_cloverloops
     using LaTeXStrings
     using LinearAlgebra
     import Base
@@ -530,6 +530,19 @@ module Wilsonloop
                 push!(loops,loop1)
             end
         end
+        return loops
+    end
+
+    function make_cloverloops(μ,ν)
+        loops = Wilsonline{Dim}[]
+        loop_righttop = Wilsonline([(μ,1),(ν,1),(μ,-1),(ν,-1)])
+        loop_lefttop = Wilsonline([(ν,1),(μ,-1),(ν,-1),(μ,1)])
+        loop_rightbottom = Wilsonline([(ν,-1),(μ,1),(ν,1),(μ,-1)])
+        loop_leftbottom= Wilsonline([(μ,-1),(ν,-1),(μ,1),(ν,1)])
+        push!(loops,loop_righttop)
+        push!(loops,loop_lefttop)
+        push!(loops,loop_rightbottom)
+        push!(loops,loop_leftbottom)
         return loops
     end
 
