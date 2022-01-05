@@ -1,7 +1,7 @@
 module Wilsonloop
     export make_staple,Wilsonline, make_staple_and_loop,derive_U,make_Cμ,
             make_plaq_staple,make_plaq, loops_staple_prime,get_position,derive_Udag,
-            make_loops
+            make_loops_fromname
     using LaTeXStrings
     using LinearAlgebra
     import Base
@@ -596,7 +596,7 @@ module Wilsonloop
         return loops
     end
 
-    function make_loops(name;Dim=4,L=nothing)
+    function make_loops_fromname(name;Dim=4,L=nothing)
         if L != nothing
             @assert Dim == length(L)
         end
