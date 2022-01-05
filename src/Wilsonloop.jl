@@ -534,6 +534,19 @@ module Wilsonloop
         return loops
     end
 
+    function make_cloverloops(μ,ν)
+        loops = Wilsonline{Dim}[]
+        loop_righttop = Wilsonline([(μ,1),(ν,1),(μ,-1),(ν,-1)])
+        loop_lefttop = Wilsonline([(ν,1),(μ,-1),(ν,-1),(μ,1)])
+        loop_rightbottom = Wilsonline([(ν,-1),(μ,1),(ν,1),(μ,-1)])
+        loop_leftbottom= Wilsonline([(μ,-1),(ν,-1),(μ,1),(ν,1)])
+        push!(loops,loop_righttop)
+        push!(loops,loop_lefttop)
+        push!(loops,loop_rightbottom)
+        push!(loops,loop_leftbottom)
+        return loops
+    end
+
 
     function make_polyakov(μ,Lμ;Dim=4)
         loops = Wilsonline{Dim}[]
