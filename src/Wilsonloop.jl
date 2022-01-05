@@ -629,33 +629,6 @@ module Wilsonloop
             error("$name is not supported!")
         end
 
-        Dim = length(L)
-        loops = Array{Array{Wilsonline{Dim},1},1}(undef,length(couplinglist))
-        for (i,name) in enumerate(couplinglist)
-            if  name == "plaquette"
-                loops[i] = make_plaq(Dim = Dim)
-            elseif name == "rectangular"
-                loops[i] = make_rect(Dim = Dim)
-            elseif name =="chair"
-                loops[i] = make_chair(Dim = Dim)
-            elseif name == "polyakov_t"
-                μ= Dim
-                loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
-            elseif name == "polyakov_z"
-                @assert Dim > 3 "Dimension should be Dim > 3 but now Dim = $Dim"
-                μ= 3
-                loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
-            elseif name == "polyakov_y"
-                @assert Dim > 2 "Dimension should be Dim > 2 but now Dim = $Dim"
-                μ= 2
-                loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
-            elseif name == "polyakov_x"
-                μ= 1
-                loops[i] = make_polyakov(μ,L[μ],Dim = Dim)
-            else
-                error("$name is not supported!")
-            end
-        end
         return loops
     end
 
