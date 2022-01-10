@@ -275,3 +275,13 @@ devl = get_leftlinks(dev[1])
 devr = get_rightlinks(dev[1])
 ```
 
+## The derivative of the action. 
+The action is usually expressed as 
+
+<img src="https://latex.codecogs.com/svg.image?S&space;=&space;\sum_{n}&space;{\rm&space;Tr}&space;U(n)V(n)" title="S = \sum_{n} {\rm Tr} U(n)V(n)" />
+
+The derivative of the action is 
+
+<img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;S}{\partial&space;U_{\mu}}&space;=&space;\sum_{n}&space;\frac{\partial&space;{\rm&space;Tr}U_{\mu}(n)V(n)&space;}{\partial&space;U_{\mu}}&space;=&space;&space;\sum_{n}&space;V(n)" title="\frac{\partial S}{\partial U_{\mu}} = \sum_{n} \frac{\partial {\rm Tr}U_{\mu}(n)V(n) }{\partial U_{\mu}} = \sum_{n} V(n)" />
+
+Therefore, the staple V is important to get the derivative. 
