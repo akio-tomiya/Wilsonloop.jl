@@ -1,4 +1,5 @@
-# Wilsonloop [![Build Status](https://github.com/cometscome/Wilsonloop.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/cometscome/Wilsonloop.jl/actions/workflows/CI.yml?query=branch%3Amain) [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://cometscome.github.io/Wilsonloop.jl/stable) [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://cometscome.github.io/Wilsonloop.jl/dev)
+# Wilsonloop.jl [![CI](https://github.com/akio-tomiya/Wilsonloop.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/akio-tomiya/Wilsonloop.jl/actions/workflows/CI.yml)
+
 
 
 
