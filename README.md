@@ -285,3 +285,7 @@ The derivative of the action is
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;S}{\partial&space;U_{\mu}(m)}&space;=&space;\sum_{n}&space;\frac{\partial&space;{\rm&space;Tr}U_{\mu}(n)V(n)&space;}{\partial&space;U_{\mu}(m)}&space;=&space;&space;V(m)" title="\frac{\partial S}{\partial U_{\mu}(m)} = \sum_{n} \frac{\partial {\rm Tr}U_{\mu}(n)V(n) }{\partial U_{\mu}(m)} = V(m)" />
 
 Therefore, the staple V is important to get the derivative. 
+
+Note that we define the derivative as 
+
+<img src="https://latex.codecogs.com/svg.image?\left[&space;\frac{\partial&space;S}{\partial&space;U_{\mu}(m)}&space;\right]_{ij}&space;\equiv&space;\frac{\partial&space;S}{\partial&space;[U_{\mu}(m)]_{ji}&space;}&space;" title="\left[ \frac{\partial S}{\partial U_{\mu}(m)} \right]_{ij} \equiv \frac{\partial S}{\partial [U_{\mu}(m)]_{ji} } " />
