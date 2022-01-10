@@ -23,6 +23,36 @@ This is used in [Gaugefields.jl](https://github.com/akio-tomiya/Gaugefields.jl) 
 add https://github.com/akio-tomiya/Wilsonloop.jl
 ```
 
+# Basic idea
+
+This package defines ```Wilsonline{Dim}``` type. 
+
+```julia
+mutable struct Wilsonline{Dim}
+        glinks::Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}
+end
+```
+This is a array of ```GLink{Dim}``` or ```Adjoint_GLink{Dim}}```. 
+
+The ```GLink{Dim}``` and ```Adjoint_GLink{Dim}}``` are defined as 
+
+```julia
+abstract type Gaugelink{Dim} end
+
+struct GLink{Dim} <: Gaugelink{Dim}
+    direction::Int8
+    position::NTuple{Dim,Int64}
+end
+
+struct Adjoint_GLink{Dim} <: Gaugelink{Dim}
+    parent::GLink{Dim}
+end
+```
+
+```GLink{Dim}``` has a direction of a bond on the lattice and relative position $U_{\mu}(n)$.
+ ```Adjoint_GLink{Dim}}``` expresses $U_{\mu}^{\dagger}(n)$. 
+
+
 # How to use
 
 ## Plaquette and its staple
