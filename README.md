@@ -23,6 +23,15 @@ This is used in [Gaugefields.jl](https://github.com/akio-tomiya/Gaugefields.jl) 
 add https://github.com/akio-tomiya/Wilsonloop.jl
 ```
 
+# Notation warning
+In Julia, adjoint represents hermitian conjugate, and we follow this terminology.
+
+Namely,
+- ``Adjoint_GLink`` means hermitian conjugate of a gauge link.
+
+Please do not confuse with a link in the adjoint representation in conventional lattice QCD context.
+We do not support links in adjoint representation.
+
 # Basic idea
 
 This package defines ```Wilsonline{Dim}``` type. 
