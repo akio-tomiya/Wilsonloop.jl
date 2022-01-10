@@ -49,8 +49,8 @@ struct Adjoint_GLink{Dim} <: Gaugelink{Dim}
 end
 ```
 
-```GLink{Dim}``` has a direction of a bond on the lattice and relative position $U_{\mu}(n)$.
- ```Adjoint_GLink{Dim}}``` expresses $U_{\mu}^{\dagger}(n)$. 
+```GLink{Dim}``` has a direction $\mu$ of a bond on the lattice and relative position $U_{\mu}(n + position)$.
+ ```Adjoint_GLink{Dim}}``` expresses $U_{\mu}^{\dagger}(n + position)$. 
 
 
 # How to use
