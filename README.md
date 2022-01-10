@@ -24,10 +24,9 @@ add https://github.com/akio-tomiya/Wilsonloop.jl
 ```
 
 # Notation warning
-In Julia, adjoint represents hermitian conjugate, and we follow this terminology.
+In Julia, adjoint represents *hermitian conjugate*, and we follow this terminology.
 
-Namely,
-- ``Adjoint_GLink`` means hermitian conjugate of a gauge link.
+For example ``Adjoint_GLink`` means hermitian conjugate of a gauge link, not the link in the adjoint representation.
 
 Please do not confuse with a link in the adjoint representation in conventional lattice QCD context.
 We do not support links in adjoint representation.
