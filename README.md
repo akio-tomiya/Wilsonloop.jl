@@ -107,6 +107,8 @@ L"$U_{2}(n)U_{4}(n+e_{2})U^{\dagger}_{2}(n+e_{4})U^{\dagger}_{4}(n)$"
 L"$U_{3}(n)U_{4}(n+e_{3})U^{\dagger}_{3}(n+e_{4})U^{\dagger}_{4}(n)$"
 ```
 
+If we want to consider 2D system, we can do ```make_plaq(Dim=2)```.
+
 The staple of the plaquette is given as 
 
 ```julia
