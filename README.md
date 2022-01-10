@@ -4,7 +4,7 @@
 
 
 # What is this?
-In the Lattice Quantum chrono dynamics (QCD), the action is constructed so-called Wilson loops in discretized space-time. 
+In the Lattice Quantum chrono dynamics (QCD), the action is constructed by so-called Wilson loops in discretized space-time. 
 Wilsonloop.jl helps us to treat with the Wilson loops. 
 
 # This is the package for Lattice QCD codes. 
