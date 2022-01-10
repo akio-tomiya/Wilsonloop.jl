@@ -1,6 +1,7 @@
 module Wilsonloop
     export make_staple,Wilsonline, make_staple_and_loop,derive_U,make_Cμ,
-            make_plaq_staple,make_plaq, loops_staple_prime,get_position,derive_Udag,make_cloverloops
+            make_plaq_staple,make_plaq, loops_staple_prime,get_position,derive_Udag,
+            make_loops_fromname
     using LaTeXStrings
     using LinearAlgebra
     import Base
@@ -592,6 +593,42 @@ module Wilsonloop
                 error("$name is not supported!")
             end
         end
+        return loops
+    end
+
+    function make_loops_fromname(name;Dim=4,L=nothing)
+        if L != nothing
+            @assert Dim == length(L)
+        end
+
+        if  name == "plaquette"
+            loops = make_plaq(Dim = Dim)
+        elseif name == "rectangular"
+            loops = make_rect(Dim = Dim)
+        elseif name =="chair"
+            loops = make_chair(Dim = Dim)
+        elseif name == "polyakov_t"
+            @assert L != nothing "system size should be given to obtain polyakov loops. please do like make_loops(\"polyakov_t\";Dim=4,L=[4,4,4,4])"
+            μ= Dim
+            loops = make_polyakov(μ,L[μ],Dim = Dim)
+        elseif name == "polyakov_z"
+            @assert L != nothing "system size should be given to obtain polyakov loops. please do like make_loops(\"polyakov_z\";Dim=4,L=[4,4,4,4])"
+            @assert Dim > 3 "Dimension should be Dim > 3 but now Dim = $Dim"
+            μ= 3
+            loops = make_polyakov(μ,L[μ],Dim = Dim)
+        elseif name == "polyakov_y"
+            @assert L != nothing "system size should be given to obtain polyakov loops. please do like make_loops(\"polyakov_y\";Dim=4,L=[4,4,4,4])"
+            @assert Dim > 2 "Dimension should be Dim > 2 but now Dim = $Dim"
+            μ= 2
+            loops = make_polyakov(μ,L[μ],Dim = Dim)
+        elseif name == "polyakov_x"
+            @assert L != nothing "system size should be given to obtain polyakov loops. please do like make_loops(\"polyakov_x\";Dim=4,L=[4,4,4,4])"
+            μ= 1
+            loops = make_polyakov(μ,L[μ],Dim = Dim)
+        else
+            error("$name is not supported!")
+        end
+
         return loops
     end
 
