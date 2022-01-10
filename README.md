@@ -52,6 +52,32 @@ end
 ```GLink{Dim}``` has a direction $\mu$ of a bond on the lattice and relative position $U_{\mu}(n + position)$.
  ```Adjoint_GLink{Dim}}``` expresses $U_{\mu}^{\dagger}(n + position)$. 
 
+If we want to consider a closed loop, we define the loop as 
+
+```julia
+loop = [(1,+1),(2,+1),(1,-1),(2,-1)]
+```
+This means that there are four gauge links and the loop is like "right, up, left, down". 
+If we want to see the actual Wilson loops, just do 
+
+```julia
+w = Wilsonline(loop)
+```
+
+Then, we can see the loops: 
+
+```julia
+show(w)
+```
+
+The output is 
+
+```
+L"$U_{1}(n)U_{2}(n+e_{1})U^{\dagger}_{1}(n+e_{2})U^{\dagger}_{2}(n)$"	
+```
+This is the LaTeXStrings.jl format. 
+
+
 
 # How to use
 
