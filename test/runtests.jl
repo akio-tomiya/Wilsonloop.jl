@@ -121,5 +121,6 @@ end
 
 @testset "Wilsonloop.jl" begin
     test()
+    @test true
     # Write your tests here.
 end
