@@ -247,6 +247,8 @@ L"$U_{1}(n+e_{1})U_{2}(n+2e_{1})U_{3}(n+2e_{1}+e_{2})U_{3}(n+2e_{1}+e_{2}+e_{3})
 L"$U_{2}(n+e_{1})U_{3}(n+e_{1}+e_{2})U_{3}(n+e_{1}+e_{2}+e_{3})U_{3}(n+e_{1}+e_{2}+2e_{3})U^{\dagger}_{1}(n+e_{2}+3e_{3})U^{\dagger}_{1}(n-e_{1}+e_{2}+3e_{3})U^{\dagger}_{3}(n-e_{1}+e_{2}+2e_{3})U^{\dagger}_{3}(n-e_{1}+e_{2}+e_{3})U^{\dagger}_{3}(n-e_{1}+e_{2})U^{\dagger}_{2}(n-e_{1})U_{1}(n-e_{1})$"	
 ```
 
+## Derivative of Wilson line
+
 The derivative of the staple
 
 ```julia
