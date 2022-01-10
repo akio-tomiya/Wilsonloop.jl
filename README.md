@@ -13,7 +13,7 @@ This is used in [Gaugefields.jl](https://github.com/akio-tomiya/Gaugefields.jl) 
 
 
 # What this package can do 
-- From a symbolic definition of Wilson lines, this returns actual value of SU(Nc)-valued Wilson lines with a given configuration
+- From a symbolic definition of Wilson lines, this returns SU(Nc)-valued Wilson lines as objects
 - Constructing all staples from given symbolic Wilson lines
 - Constructing derivatives of given symbolic Wilson lines (auto-grad for SU(Nc) variables)
 
@@ -271,7 +271,7 @@ dev = derive_U(staple[1],nu)
 L"$U_{1}(n-e_{1}) \otimes U_{3}(n+e_{2})U_{3}(n+e_{2}+e_{3})U_{3}(n+e_{2}+2e_{3})U^{\dagger}_{1}(n-e_{1}+e_{2}+3e_{3})U^{\dagger}_{1}(n-2e_{1}+e_{2}+3e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2}+2e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2}+e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2})U^{\dagger}_{2}(n-2e_{1})\delta_{m,n+2e_{1}}$"
 ```
 
-The derivative of the Wilson loops with respect ot a link is a rank-4 tensor ([ref](https://arxiv.org/abs/2103.11965)), which is expressed as 
+The derivative of the Wilson loops with respect to a link is a rank-4 tensor ([ref](https://arxiv.org/abs/2103.11965)), which is expressed as 
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;V}{\partial&space;U}&space;=&space;\sum_{i}&space;A_i&space;\otimes&space;B_i" title="\frac{\partial V}{\partial U} = \sum_{i} A_i \otimes B_i" />
 
