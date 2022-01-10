@@ -1,7 +1,7 @@
 module Wilsonloop
     export make_staple,Wilsonline, make_staple_and_loop,derive_U,make_Cμ,
             make_plaq_staple,make_plaq, loops_staple_prime,get_position,derive_Udag,
-            make_loops_fromname,make_chair,get_rightlinks,get_leftlinks
+            make_loops_fromname,make_chair,get_rightlinks,get_leftlinks,get_direction
     using LaTeXStrings
     using LinearAlgebra
     import Base
