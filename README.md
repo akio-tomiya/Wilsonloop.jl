@@ -174,5 +174,5 @@ L"$U_{1}(n-e_{1}) \otimes U^{\dagger}_{1}(n-e_{1}+e_{2})U^{\dagger}_{2}(n-e_{1})
 ```
 
 
-The derivatives are usually used for making the smearing of the gauge fields (STOUS smearing can be used in Gaugefields.jl). 
+The derivatives are usually used for making the smearing of the gauge fields (STOUT smearing can be used in Gaugefields.jl). 
 
