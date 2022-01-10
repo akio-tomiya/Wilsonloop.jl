@@ -5,7 +5,7 @@
 
 # What is this?
 In Lattice Quantum Chromo-Dynamics (QCD), the gauge action is constructed by gauge invariant objects, Wilson loops, in discretized spacetime. 
-Wilsonloop.jl helps us to treat with the Wilson loops and generic Wilson lines in any NCc and dimensions. 
+Wilsonloop.jl helps us to treat with the Wilson loops and generic Wilson lines in any Nc and dimensions. 
 
 # This is the package for Lattice QCD codes. 
 
@@ -13,9 +13,9 @@ This is used in [Gaugefields.jl](https://github.com/akio-tomiya/Gaugefields.jl) 
 
 
 # What this package can do 
-- From a symbolic definition of Wilson lines, this returns actual value of the Wilson lines
-- Constructing Staples from given Wilson lines
-- Constructing derivatives of given Wilson lines
+- From a symbolic definition of Wilson lines, this returns actual value of SU(Nc)-valued Wilson lines with a given configuration
+- Constructing all staples from given symbolic Wilson lines
+- Constructing derivatives of given symbolic Wilson lines (auto-grad for SU(Nc) variables)
 
 # How to install 
 
@@ -52,37 +52,11 @@ end
 ```GLink{Dim}``` has a direction of a bond on the lattice and relative position $U_{\mu}(n)$.
  ```Adjoint_GLink{Dim}}``` expresses $U_{\mu}^{\dagger}(n)$. 
 
-If we want to consider a closed loop, we define the loop as 
-
-```julia
-loop = [(1,+1),(2,+1),(1,-1),(2,-1)]
-```
-This means that there are four gauge links and the loop is like "right, up, left, down". 
-If we want to see the actual Wilson loops, just do 
-
-```julia
-w = Wilsonline(loop)
-```
-
-Then, we can see the loops: 
-
-```julia
-show(w)
-```
-
-The output is 
-
-```
-L"$U_{1}(n)U_{2}(n+e_{1})U^{\dagger}_{1}(n+e_{2})U^{\dagger}_{2}(n)$"	
-```
-This is the LaTeXStrings.jl format. 
-
-
 
 # How to use
 
 ## Plaquette and its staple
-We can easily generate the plaquette. 
+We can easily generate a plaquette. 
 
 ```julia
 println("plaq")
@@ -238,5 +212,5 @@ L"$U_{1}(n-e_{1}) \otimes U^{\dagger}_{1}(n-e_{1}+e_{2})U^{\dagger}_{2}(n-e_{1})
 ```
 
 
-The derivatives are usually used for making the smearing of the gauge fields (STOUT smearing can be used in Gaugefields.jl). 
+The derivatives are usually used for making the smearing of the gauge fields (Stout smearing can be used in Gaugefields.jl). 
 
