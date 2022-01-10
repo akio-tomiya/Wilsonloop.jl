@@ -204,7 +204,7 @@ for μ=1:4
     end
 end
 ```
-Note that the derivative is a rank-2 tensor. 
+Note that the derivative is a rank-4 tensor. 
 
 The output is 
 
@@ -250,10 +250,22 @@ L"$U_{2}(n+e_{1})U_{3}(n+e_{1}+e_{2})U_{3}(n+e_{1}+e_{2}+e_{3})U_{3}(n+e_{1}+e_{
 The derivative of the staple
 
 ```julia
-derive_U(staple[1],nu)
+dev = derive_U(staple[1],nu)
 ```
 
 ```
 L"$U_{1}(n-e_{1}) \otimes U_{3}(n+e_{2})U_{3}(n+e_{2}+e_{3})U_{3}(n+e_{2}+2e_{3})U^{\dagger}_{1}(n-e_{1}+e_{2}+3e_{3})U^{\dagger}_{1}(n-2e_{1}+e_{2}+3e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2}+2e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2}+e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2})U^{\dagger}_{2}(n-2e_{1})\delta_{m,n+2e_{1}}$"
+```
+
+The derivative of the Wilson loops is a rank-4 tensor, which is expressed as 
+
+<img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;V}{\partial&space;U}&space;=&space;\sum_{i}&space;A_i&space;\otimes&space;B_i" title="\frac{\partial V}{\partial U} = \sum_{i} A_i \otimes B_i" />
+
+, where A and B is a matrix. 
+We can get the A and B matrices, expressed by ```Wilsonline{Dim}``` type : 
+
+```julia
+devl = get_leftlinks(dev[1])
+devr = get_rightlinks(dev[1])
 ```
 
