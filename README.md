@@ -216,3 +216,44 @@ L"$U_{1}(n-e_{1}) \otimes U^{\dagger}_{1}(n-e_{1}+e_{2})U^{\dagger}_{2}(n-e_{1})
 
 The derivatives are usually used for making the smearing of the gauge fields (Stout smearing can be used in Gaugefields.jl). 
 
+
+# Examples
+
+## Long lines and its staple
+
+```julia
+mu = 1
+nu = 2
+rho = 3
+loops = [(mu,2),(nu,1),(rho,3),(mu,-2),(rho,-3),(nu,-1)]
+w = Wilsonline(loops)
+```
+
+```
+L"$U_{1}(n)U_{1}(n+e_{1})U_{2}(n+2e_{1})U_{3}(n+2e_{1}+e_{2})U_{3}(n+2e_{1}+e_{2}+e_{3})U_{3}(n+2e_{1}+e_{2}+2e_{3})U^{\dagger}_{1}(n+e_{1}+e_{2}+3e_{3})U^{\dagger}_{1}(n+e_{2}+3e_{3})U^{\dagger}_{3}(n+e_{2}+2e_{3})U^{\dagger}_{3}(n+e_{2}+e_{3})U^{\dagger}_{3}(n+e_{2})U^{\dagger}_{2}(n)$"
+```
+
+Its staple: 
+
+```julia
+staple = make_staple(w,mu)
+```
+
+```
+1-st loop
+L"$U_{1}(n+e_{1})U_{2}(n+2e_{1})U_{3}(n+2e_{1}+e_{2})U_{3}(n+2e_{1}+e_{2}+e_{3})U_{3}(n+2e_{1}+e_{2}+2e_{3})U^{\dagger}_{1}(n+e_{1}+e_{2}+3e_{3})U^{\dagger}_{1}(n+e_{2}+3e_{3})U^{\dagger}_{3}(n+e_{2}+2e_{3})U^{\dagger}_{3}(n+e_{2}+e_{3})U^{\dagger}_{3}(n+e_{2})U^{\dagger}_{2}(n)$"	
+
+2-nd loop
+L"$U_{2}(n+e_{1})U_{3}(n+e_{1}+e_{2})U_{3}(n+e_{1}+e_{2}+e_{3})U_{3}(n+e_{1}+e_{2}+2e_{3})U^{\dagger}_{1}(n+e_{2}+3e_{3})U^{\dagger}_{1}(n-e_{1}+e_{2}+3e_{3})U^{\dagger}_{3}(n-e_{1}+e_{2}+2e_{3})U^{\dagger}_{3}(n-e_{1}+e_{2}+e_{3})U^{\dagger}_{3}(n-e_{1}+e_{2})U^{\dagger}_{2}(n-e_{1})U_{1}(n-e_{1})$"	
+```
+
+The derivative of the staple
+
+```julia
+derive_U(staple[1],nu)
+```
+
+```
+L"$U_{1}(n-e_{1}) \otimes U_{3}(n+e_{2})U_{3}(n+e_{2}+e_{3})U_{3}(n+e_{2}+2e_{3})U^{\dagger}_{1}(n-e_{1}+e_{2}+3e_{3})U^{\dagger}_{1}(n-2e_{1}+e_{2}+3e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2}+2e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2}+e_{3})U^{\dagger}_{3}(n-2e_{1}+e_{2})U^{\dagger}_{2}(n-2e_{1})\delta_{m,n+2e_{1}}$"
+```
+
