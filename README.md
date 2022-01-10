@@ -4,16 +4,16 @@
 
 
 # What is this?
-In the Lattice Quantum chrono dynamics (QCD), the action is constructed by so-called Wilson loops in discretized space-time. 
-Wilsonloop.jl helps us to treat with the Wilson loops. 
+In Lattice Quantum Chromo-Dynamics (QCD), the gauge action is constructed by gauge invariant objects, Wilson loops, in discretized spacetime. 
+Wilsonloop.jl helps us to treat with the Wilson loops and generic Wilson lines in any NCc and dimensions. 
 
 # This is the package for Lattice QCD codes. 
 
 This is used in [Gaugefields.jl](https://github.com/akio-tomiya/Gaugefields.jl) and [LatticeQCD.jl](https://github.com/akio-tomiya/LatticeQCD.jl)
 
 
-# What this package can do:
-- Generating Wilson lines
+# What this package can do 
+- From a symbolic definition of Wilson lines, this returns actual value of the Wilson lines
 - Constructing Staples from given Wilson lines
 - Constructing derivatives of given Wilson lines
 
@@ -49,8 +49,8 @@ struct Adjoint_GLink{Dim} <: Gaugelink{Dim}
 end
 ```
 
-```GLink{Dim}``` has a direction $\mu$ of a bond on the lattice and relative position $U_{\mu}(n + position)$.
- ```Adjoint_GLink{Dim}}``` expresses $U_{\mu}^{\dagger}(n + position)$. 
+```GLink{Dim}``` has a direction of a bond on the lattice and relative position $U_{\mu}(n)$.
+ ```Adjoint_GLink{Dim}}``` expresses $U_{\mu}^{\dagger}(n)$. 
 
 If we want to consider a closed loop, we define the loop as 
 
