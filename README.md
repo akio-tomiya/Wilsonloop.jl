@@ -261,7 +261,7 @@ The derivative of the Wilson loops is a rank-4 tensor, which is expressed as
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;V}{\partial&space;U}&space;=&space;\sum_{i}&space;A_i&space;\otimes&space;B_i" title="\frac{\partial V}{\partial U} = \sum_{i} A_i \otimes B_i" />
 
-, where A and B is a matrix. 
+, where A and B are matrices. 
 We can get the A and B matrices, expressed by ```Wilsonline{Dim}``` type : 
 
 ```julia
