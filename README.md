@@ -275,7 +275,7 @@ devl = get_leftlinks(dev[1])
 devr = get_rightlinks(dev[1])
 ```
 
-## The derivative of the action. 
+## The derivative of the action
 The action is usually expressed as 
 
 <img src="https://latex.codecogs.com/svg.image?S&space;=&space;\sum_{n}&space;{\rm&space;Tr}&space;U(n)V(n)" title="S = \sum_{n} {\rm Tr} U(n)V(n)" />
