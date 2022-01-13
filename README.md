@@ -1,15 +1,16 @@
 # Wilsonloop.jl [![CI](https://github.com/akio-tomiya/Wilsonloop.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/akio-tomiya/Wilsonloop.jl/actions/workflows/CI.yml)
 
+# Abstract
 
+This is a package for lattice QCD codes.
 
+<img src="LQCDjl_block.png" width=300> 
+
+This package will be used in [LatticeQCD.jl](https://github.com/akio-tomiya/LatticeQCD.jl). 
 
 # What is this?
 In Lattice Quantum Chromo-Dynamics (QCD), the gauge action is constructed by gauge invariant objects, Wilson loops, in discretized spacetime. 
 Wilsonloop.jl helps us to treat with the Wilson loops and generic Wilson lines in any Nc and dimensions. 
-
-# This is the package for Lattice QCD codes. 
-
-This is used in [Gaugefields.jl](https://github.com/akio-tomiya/Gaugefields.jl) and [LatticeQCD.jl](https://github.com/akio-tomiya/LatticeQCD.jl)
 
 
 # What this package can do 
