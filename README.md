@@ -20,7 +20,7 @@ This is used in [Gaugefields.jl](https://github.com/akio-tomiya/Gaugefields.jl) 
 # How to install 
 
 ```julia
-add https://github.com/akio-tomiya/Wilsonloop.jl
+add Wilsonloop
 ```
 
 # Notation warning
