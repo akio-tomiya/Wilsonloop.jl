@@ -1,10 +1,12 @@
 module Wilsonloop
     export make_staple,Wilsonline, make_staple_and_loop,derive_U,make_Cμ,
             make_plaq_staple,make_plaq, loops_staple_prime,get_position,derive_Udag,
-            make_loops_fromname,make_chair,get_rightlinks,get_leftlinks,get_direction
+            make_loops_fromname,make_chair,get_rightlinks,get_leftlinks,get_direction,
+            loops_plaq,loops_rect,check_plaqset
     using LaTeXStrings
     using LinearAlgebra
     import Base
+    import Base.:(==)
 
     abstract type Gaugelink{Dim} end
 
@@ -79,6 +81,36 @@ module Wilsonloop
         end
     end
 
+    function ==(x::GLink{Dim},y::Adjoint_GLink{Dim}) where Dim
+        return false
+    end
+
+    function ==(x::Adjoint_GLink{Dim},y::GLink{Dim}) where Dim
+        return false
+    end
+
+    function ==(x::GLink{Dim},y::GLink{Dim}) where Dim
+        if x.direction == y.direction && x.position == y.position
+            return true
+        else
+            return false
+        end
+    end
+
+    function ==(x::Wilsonline{Dim},y::Wilsonline{Dim}) where Dim
+        flag = true
+        if length(x) != length(y)
+            return false
+        end
+
+        for i=1:length(x)
+            if x[i] != y[i]
+                return false
+            end
+        end
+        return true
+    end
+
     struct DwDU{Dim}
         parent::Wilsonline{Dim}
         insertindex::Int64
@@ -97,7 +129,7 @@ module Wilsonloop
     end
 
     function get_position(dw::DwDU)
-        return dw.position1 
+        return dw.position
     end
 
 
@@ -513,10 +545,25 @@ module Wilsonloop
         return loops
     end
 
+    function construct_plaq()
+        loops_plaq = Dict{Tuple{Int8,Int8,Int8},Any}()
+        for Dim=1:4
+            for μ=1:Dim
+                for ν=μ:Dim
+                    if μ == ν
+                        continue
+                    end
+                    loops_plaq[(Dim,μ,ν)] = make_plaq(μ,ν,Dim=Dim)
+                end
+            end
+        end
+        return loops_plaq
+    end
+
     function make_rect(;Dim=4)
         loops = Wilsonline{Dim}[]
-        for μ=1:4
-            for ν=μ:4
+        for μ=1:Dim
+            for ν=μ:Dim
                 if ν == μ
                     continue
                 end
@@ -532,6 +579,22 @@ module Wilsonloop
             end
         end
         return loops
+    end
+
+    function construct_rect()
+        loops_rect = Dict{Tuple{Int8,Int8,Int8,Int8},Any}()
+        for Dim=1:4
+            for μ=1:Dim
+                for ν=μ:Dim
+                    if μ == ν
+                        continue
+                    end
+                    loops_rect[(Dim,μ,ν,1)] = Wilsonline([(μ,1),(ν,2),(μ,-1),(ν,-2)],Dim = Dim)
+                    loops_rect[(Dim,μ,ν,2)] = Wilsonline([(μ,2),(ν,1),(μ,-2),(ν,-1)],Dim = Dim)
+                end
+            end
+        end
+        return loops_rect
     end
 
     function make_cloverloops(μ,ν)
@@ -633,6 +696,7 @@ module Wilsonloop
     end
 
     function make_chair(;Dim=4)
+        @assert Dim == 4 "only Dim = 4 is supported now"
         #loopset = []
         loopset = Wilsonline{Dim}[]
         set1 = (1,2,3)
@@ -717,6 +781,89 @@ module Wilsonloop
         end
         return loops_staple
     end
+
+
     const loops_staple_prime = construct_staple_prime()
     const loops_staple = construct_staple()
+    const loops_plaq = construct_plaq()
+    const loops_rect = construct_rect()
+    
+    function check_plaqset(wi::Wilsonline{Dim}) where Dim
+        flag = false          
+        for μ=1:Dim
+            for ν=μ:Dim
+                if μ==ν
+                    continue
+                end
+                loop= loops_plaq[(Dim,μ,ν)]
+                if loop == wi
+                    #println("match!")
+                    flag = true
+                    break
+                end
+            end
+            if flag 
+                continue
+            end
+        end
+
+        return flag
+    end
+
+    function check_plaqset(w::Vector{Wilsonline{Dim}}) where Dim
+        flag = false
+        for wi in w            
+            flag = check_plaqset(wi)
+            if flag != true
+                return false
+            end
+        end
+
+        return flag
+    end
+
+    function check_rectset(wi::Wilsonline{Dim}) where Dim
+        flag = false
+        direction = (0,0)          
+        for μ=1:Dim
+            for ν=μ:Dim
+                if μ==ν
+                    continue
+                end
+                loop= loops_rect[(Dim,μ,ν,1)]
+                if loop == wi
+                    #println("match!")
+                    direction = (μ,ν)
+                    flag = true
+                    break
+                end
+
+                loop= loops_rect[(Dim,μ,ν,2)]
+                if loop == wi
+                    #println("match!")
+                    direction = (μ,ν)
+                    flag = true
+                    break
+                end
+            end
+            if flag 
+                continue
+            end
+        end
+
+        return flag,direction
+    end
+
+    function check_rectset(w::Vector{Wilsonline{Dim}}) where Dim
+        flag = false
+        direction = (0,0)
+        for wi in w            
+            flag,direction = check_rectset(wi)
+            if flag != true
+                return false,direction
+            end
+        end
+
+        return flag,direction
+    end
 end

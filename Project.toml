@@ -1,7 +1,7 @@
 name = "Wilsonloop"
 uuid = "f3c8d4fe-2f22-401d-8228-e6a01d7a1d02"
 authors = ["cometscome <cometscome@gmail.com> and contributors"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
