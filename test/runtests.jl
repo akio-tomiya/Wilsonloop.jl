@@ -2,6 +2,9 @@ using Wilsonloop
 using Test
 
 function test()
+
+    
+
     println("plaq")
     plaq = make_plaq()
     display(plaq)
@@ -10,10 +13,24 @@ function test()
         staples = make_plaq_staple(μ)
         display(staples)
     end
-
     show(loops_staple_prime[(4,4)])
 
     #return
+
+    loop = [(1,+1)]
+    
+    println(loop)
+    w = Wilsonline(loop)
+    loop2 = [(1,-1)]
+    w2 = Wilsonline(loop2)
+
+
+    V1 = derive_U(w,1)
+    V2 = derive_U(w2,1)
+    show(V1)
+    println("d")
+    show(V2)
+    println("d")
 
 
     loop = [(1,+1),(2,+1),(1,-1),(2,-1)]

@@ -13,55 +13,45 @@ module Wilsonloop
     struct GLink{Dim} <: Gaugelink{Dim}
         direction::Int8
         position::NTuple{Dim,Int64}
+        isdag::Bool
+
+        function GLink{Dim}(direction,position,isdag=false) where Dim
+            return new{Dim}(direction,position,isdag)
+        end
     end
 
-    struct Adjoint_GLink{Dim} <: Gaugelink{Dim}
-        parent::GLink{Dim}
-    end
 
     function LinearAlgebra.adjoint(glink::GLink{Dim}) where Dim
-        return Adjoint_GLink{Dim}(glink)
+        return GLink{Dim}(glink.direction,glink.position,!(glink.isdag))
+#        return Adjoint_GLink{Dim}(glink)
     end
 
-    function LinearAlgebra.adjoint(glink::Adjoint_GLink{Dim}) where Dim
-        return glink.parent
-    end
 
     function get_direction(glink::GLink)
         return glink.direction
-    end
-
-    function get_direction(glink::Adjoint_GLink)
-        return get_direction(glink.parent)
     end
 
     function get_position(glink::GLink)
         return glink.position
     end
 
-    function get_position(glink::Adjoint_GLink)
-        return get_position(glink.parent)
-    end
 
     function set_position(glink::GLink{Dim},position) where Dim
         return GLink{Dim}(glink.direction,position)
     end
 
-    function set_position(glink::Adjoint_GLink{Dim},position) where Dim
-        return GLink{Dim}(glink.parent.direction,position)'
-    end
-
-
 
     mutable struct Wilsonline{Dim}
-        glinks::Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}
+        glinks::Vector{GLink{Dim}}
+        #glinks::Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}
 
         Wilsonline(;Dim=4) = new{Dim}([])
         Wilsonline(glinks;Dim=4) = new{Dim}(glinks)
         function Wilsonline(segments_in::Array{Tuple{T,T},1};Dim=4) where T<: Integer
             segments = make_links(segments_in)
             numline = length(segments)
-            glinks = Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}(undef,numline)
+            glinks = Array{GLink{Dim},1}(undef,numline)
+            #glinks = Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}(undef,numline)
             position = zeros(Int64,Dim)
             for (i,segment) in enumerate(segments)
                 dimension = segment[1]
@@ -81,15 +71,12 @@ module Wilsonloop
         end
     end
 
-    function ==(x::GLink{Dim},y::Adjoint_GLink{Dim}) where Dim
-        return false
-    end
-
-    function ==(x::Adjoint_GLink{Dim},y::GLink{Dim}) where Dim
-        return false
-    end
 
     function ==(x::GLink{Dim},y::GLink{Dim}) where Dim
+        if x.isdag != y.isdag
+            return false
+        end
+
         if x.direction == y.direction && x.position == y.position
             return true
         else
@@ -245,19 +232,6 @@ module Wilsonloop
         return latexstring(outputstring)
     end
 
-    #=
-
-    function Base.display(w::Wilsonline{Dim}) where Dim
-        outputstring = ""
-        for (i,glink) in enumerate(w.glinks)
-            outputstring = outputstring*get_printstring(glink)
-        end
-        #println(outputstring)
-        show(io,latexstring(outputstring))
-        #return outputstring
-    end
-
-    =#
 
     function Base.show(io::IO,w::Wilsonline{Dim}) where Dim
         outputstring = ""
@@ -315,7 +289,8 @@ module Wilsonloop
         linkindices=Int64[]
         for i=1:numlinks
             link = w[i]
-            if typeof(link) <: GLink
+            if link.isdag == false
+                #typeof(link) <: GLink
                 if link.direction == μ
                     append!(linkindices,i)
                 end
@@ -329,7 +304,8 @@ module Wilsonloop
         linkindices=Int64[]
         for i=1:numlinks
             link = w[i]
-            if typeof(link) <: Adjoint_GLink
+            if link.isdag 
+            #if typeof(link) <: Adjoint_GLink
                 if get_direction(link) == μ
                     append!(linkindices,i)
                 end
@@ -358,7 +334,8 @@ module Wilsonloop
             for j=ith+1:numlinks
                 link = w[j]
                 
-                if typeof(link) <: GLink 
+                if link.isdag == false
+                #if typeof(link) <: GLink 
                     link_rev = set_position(link,Tuple(position))
                     position[get_direction(link)] += 1
                 else
@@ -406,25 +383,13 @@ module Wilsonloop
 
             for j=ith+1:numlinks
                 link = w[j]
-                #=
-                if typeof(link) <: GLink 
-                    link_rev = set_position(link,Tuple(position))
-                    position[get_direction(link)] += 1
-                else
-                    position[get_direction(link)] += -1
-                    link_rev = set_position(link,Tuple(position))
-                end
-                push!(rightlinks,link_rev)
-                =#
+
                 push!(rightlinks,link)
             end
 
             for j=1:ith-1
                 link = w[j]
-                #=
-                position = collect(get_position(link)) .- origin
-                link_rev =  set_position(link,Tuple(position))
-                push!(leftlinks,link_rev)=#
+
                 push!(leftlinks,link)
             end
             dwdUdag[i] = DwDU{Dim}(w,ith,origin,leftlinks,rightlinks,μ)
