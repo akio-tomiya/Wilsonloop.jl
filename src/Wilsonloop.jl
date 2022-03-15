@@ -20,6 +20,14 @@ module Wilsonloop
         end
     end
 
+    struct Adjoint_GLink{Dim} <: Gaugelink{Dim}
+        parent::GLink{Dim}
+    end
+
+    function LinearAlgebra.adjoint(glink::Adjoint_GLink{Dim}) where Dim
+        return GLink{Dim}(glink.direction,glink.position,true)#, glink.parent
+    end
+
 
     function LinearAlgebra.adjoint(glink::GLink{Dim}) where Dim
         return GLink{Dim}(glink.direction,glink.position,!(glink.isdag))
