@@ -41,7 +41,7 @@ module Wilsonloop
 
 
     function set_position(glink::GLink{Dim},position) where Dim
-        return GLink{Dim}(glink.direction,position)
+        return GLink{Dim}(glink.direction,position,glink.isdag)
     end
 
 
