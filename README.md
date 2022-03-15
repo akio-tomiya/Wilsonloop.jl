@@ -35,12 +35,12 @@ This package defines ```Wilsonline{Dim}``` type.
 
 ```julia
 mutable struct Wilsonline{Dim}
-        glinks::Array{Union{GLink{Dim},Adjoint_GLink{Dim}},1}
+        glinks::Array{GLink{Dim},1}
 end
 ```
-This is a array of ```GLink{Dim}``` or ```Adjoint_GLink{Dim}}```. 
+This is a array of ```GLink{Dim}```.
 
-The ```GLink{Dim}``` and ```Adjoint_GLink{Dim}}``` are defined as 
+The ```GLink{Dim}``` is defined as 
 
 ```julia
 abstract type Gaugelink{Dim} end
@@ -48,15 +48,12 @@ abstract type Gaugelink{Dim} end
 struct GLink{Dim} <: Gaugelink{Dim}
     direction::Int8
     position::NTuple{Dim,Int64}
+    isdag::Bool
 end
 
-struct Adjoint_GLink{Dim} <: Gaugelink{Dim}
-    parent::GLink{Dim}
-end
 ```
 
 ```GLink{Dim}``` has a direction of a bond on the lattice and relative position $U_{\mu}(n)$.
- ```Adjoint_GLink{Dim}}``` expresses $U_{\mu}^{\dagger}(n)$. 
 The direction and position are obtained by ```get_direction(a)``` and ```get_position(a)```, respectively. 
 For example if we want to have 2nd link of the Wilson loop ```w```, just do ```get_position(w[2])```. 
 
