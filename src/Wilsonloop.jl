@@ -574,7 +574,7 @@ module Wilsonloop
         return loops_rect
     end
 
-    function make_cloverloops(μ,ν)
+    function make_cloverloops(μ,ν;Dim=4)
         loops = Wilsonline{Dim}[]
         loop_righttop = Wilsonline([(μ,1),(ν,1),(μ,-1),(ν,-1)])
         loop_lefttop = Wilsonline([(ν,1),(μ,-1),(ν,-1),(μ,1)])
@@ -843,4 +843,7 @@ module Wilsonloop
 
         return flag,direction
     end
+
+
+
 end
