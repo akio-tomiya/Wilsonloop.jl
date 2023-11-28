@@ -250,7 +250,8 @@ end
 
 function get_printstring(glink::Gaugelink{Dim}) where {Dim}
     direction = get_direction(glink)
-    dagornot = ifelse(typeof(glink) <: GLink, "", "^{\\dagger}")
+    dagornot = ifelse(glink.isdag, "^{\\dagger}","")
+    #dagornot = ifelse(typeof(glink) <: GLink, "", "^{\\dagger}")
     nstring = get_printstring_direction(glink)
     return "U$(dagornot)_{$(direction)}($(nstring))"
 end
