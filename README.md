@@ -8,7 +8,8 @@ This is a package for lattice QCD codes.
 
 <img src="LQCDjl_block.png" width=300> 
 
-This package is used in [LatticeQCD.jl](https://github.com/akio-tomiya/LatticeQCD.jl). 
+This package is used in [LatticeQCD.jl](https://github.com/akio-tomiya/LatticeQCD.jl)
+and a code in a project [JuliaQCD](https://github.com/JuliaQCD/).
 
 # What this package can do 
 - From a symbolic definition of Wilson lines, this returns SU(Nc)-valued Wilson lines as objects
