@@ -8,7 +8,7 @@ This is a package for lattice QCD codes.
 
 <img src="LQCDjl_block.png" width=300> 
 
-This package will be used in [LatticeQCD.jl](https://github.com/akio-tomiya/LatticeQCD.jl). 
+This package is used in [LatticeQCD.jl](https://github.com/akio-tomiya/LatticeQCD.jl). 
 
 # What this package can do 
 - From a symbolic definition of Wilson lines, this returns SU(Nc)-valued Wilson lines as objects
@@ -292,3 +292,19 @@ Therefore, the staple V is important to get the derivative.
 Note that we define the derivative as 
 
 <img src="https://latex.codecogs.com/svg.image?\left[&space;\frac{\partial&space;S}{\partial&space;U_{\mu}(m)}&space;\right]_{ij}&space;\equiv&space;\frac{\partial&space;S}{\partial&space;[U_{\mu}(m)]_{ji}&space;}&space;" title="\left[ \frac{\partial S}{\partial U_{\mu}(m)} \right]_{ij} \equiv \frac{\partial S}{\partial [U_{\mu}(m)]_{ji} } " />
+
+# Acknowledgment
+If you write a paper using this package, please refer this code.
+
+BibTeX citation is following
+```
+@misc{nagai2024juliaqcdportablelatticeqcd,
+      title={JuliaQCD: Portable lattice QCD package in Julia language}, 
+      author={Yuki Nagai and Akio Tomiya},
+      year={2024},
+      eprint={2409.03030},
+      archivePrefix={arXiv},
+      primaryClass={hep-lat},
+      url={https://arxiv.org/abs/2409.03030}, 
+}
+```
