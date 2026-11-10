@@ -18,9 +18,13 @@ and a code in a project [JuliaQCD](https://github.com/JuliaQCD/).
 
 # How to install 
 
-```julia
+In the Julia REPL, press `]` to enter the package mode and run
+
+```
 add Wilsonloop
 ```
+
+or, equivalently, run `using Pkg; Pkg.add("Wilsonloop")` in the normal REPL mode.
 
 # Notation warning
 In Julia, adjoint represents *hermitian conjugate*, and we follow this terminology.
@@ -65,8 +69,11 @@ For example if we want to have 2nd link of the Wilson loop ```w```, just do ```g
 
 ## Plaquette and its staple
 We can easily generate a plaquette. 
+The examples below run in this order in one Julia session.
 
 ```julia
+using Wilsonloop
+
 println("plaq")
 plaq = make_plaq()
 display(plaq)
@@ -155,19 +162,7 @@ L"$U_{2}(n+e_{4})U^{\dagger}_{4}(n+e_{2})U^{\dagger}_{2}(n)$"
 5-th loop
 L"$U^{\dagger}_{3}(n-e_{3}+e_{4})U^{\dagger}_{4}(n-e_{3})U_{3}(n-e_{3})$"	
 6-th loop
-L"$U_{3}(n+e_{4})U^{\dagger}_{4}(n+e_{3})U^{\dagger}_{3}(n)$"	
-1-st loop
-L"$U^{\dagger}_{1}(n-e_{1})U_{4}(n-e_{1})U_{1}(n-e_{1}+e_{4})$"	
-2-nd loop
-L"$U_{1}(n)U_{4}(n+e_{1})U^{\dagger}_{1}(n+e_{4})$"	
-3-rd loop
-L"$U^{\dagger}_{2}(n-e_{2})U_{4}(n-e_{2})U_{2}(n-e_{2}+e_{4})$"	
-4-th loop
-L"$U_{2}(n)U_{4}(n+e_{2})U^{\dagger}_{2}(n+e_{4})$"	
-5-th loop
-L"$U^{\dagger}_{3}(n-e_{3})U_{4}(n-e_{3})U_{3}(n-e_{3}+e_{4})$"	
-6-th loop
-L"$U_{3}(n)U_{4}(n+e_{3})U^{\dagger}_{3}(n+e_{4})$"
+L"$U_{3}(n+e_{4})U^{\dagger}_{4}(n+e_{3})U^{\dagger}_{3}(n)$"
 ```
 
 ## Input loops
